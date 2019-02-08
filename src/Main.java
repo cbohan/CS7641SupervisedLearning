@@ -16,39 +16,43 @@ import weka.classifiers.trees.RandomForest;
 import weka.core.Instances;
 
 public class Main {
+	//Where to save the .arff files.
 	public static final String POKEMON_TRAINING_DATA_SET = "pokemonTraining.arff"; 
 	public static final String POKEMON_TEST_DATA_SET = "pokemonTest.arff"; 
 	public static final String CUSTOMER_SATISFACTION_TRAINING_DATA_SET = "customerSatisfactionTraining.arff"; 
 	public static final String CUSTOMER_SATISFACTION_TEST_DATA_SET = "customerSatisfactionTest.arff"; 
 	
-	private static final boolean DO_POKEMON_DATASET = false;
-	private static final boolean DO_CUSTOMER_SATISFACTION_DATASET = true;
-	private static final boolean TEST_AGAINST_TEST_SET = true; 
-	private static final int TEST_RUNS = 1;
+	private static final boolean DO_POKEMON_DATASET = false; //Create and test classifier for pokemon dataset?
+	private static final boolean DO_CUSTOMER_SATISFACTION_DATASET = true; //Create and test classifier for customer satisfaction dataset?
+	private static final boolean TEST_AGAINST_TEST_SET = true;  //True = test against test dataset, false = test against training dataset.
+	private static final int TEST_RUNS = 1; //How many times to generate new data, create a classifier, and test the classifier.
 	
-	private static final int ENTRIES_PER_POKEMON = 25;
-	private static final int TOTAL_CUSTOMER_ENTRIES = 1000;
+	private static final int ENTRIES_PER_POKEMON = 25; //How much data to create for the pokemon dataset (total data = this value * 34).
+	private static final int TOTAL_CUSTOMER_ENTRIES = 1000; //How much data to create for the customer satisfaction dataset.
 	
-	private static final int NEURAL_NET_TRAINING_TIME = 500;
-	private static final int K = 10;
+	private static final int NEURAL_NET_TRAINING_TIME = 500; 
+	private static final int K = 10; //K in KNN
 	private static final int BOOSTING_ITERATIONS = 100;
 	
+	//NOTE: Only one of these should be true at a time when trying to get running time for 
+	//a type of classifier.
 	private static final boolean DECISION_TREE = false;
 	private static final boolean NEURAL_NETWORK= false;
 	private static final boolean KNN = false;
 	private static final boolean BOOSTING = false;
 	private static final boolean SVM = true;
 	
-	public static Instances pokemonTrainingDataSet;
-	public static Instances pokemonTestDataSet;
-	public static Instances customerSatisfactionTrainingDataSet;
-	public static Instances customerSatisfactionTestDataSet;
+	//DO NOT TOUCH FROM HERE ON
+	private static Instances pokemonTrainingDataSet;
+	private static Instances pokemonTestDataSet;
+	private static Instances customerSatisfactionTrainingDataSet;
+	private static Instances customerSatisfactionTestDataSet;
 	
-	public static J48 pokemonDecisionTreeClassifier, customerSatisfactionDecisionTreeClassifier;
-	public static MultilayerPerceptron pokemonNeuralNetworkClassifier, customerSatisfactionNeuralNetworkClassifier;
-	public static IBk pokemonKNNClassifier, customerSatisfactionKNNClassifier;
-	public static AdaBoostM1 pokemonBoostingClassifier, customerSatisfactionBoostingClassifier;
-	public static SMO pokemonSVMClassifier, customerSatisfactionSVMClassifier;
+	private static J48 pokemonDecisionTreeClassifier, customerSatisfactionDecisionTreeClassifier;
+	private static MultilayerPerceptron pokemonNeuralNetworkClassifier, customerSatisfactionNeuralNetworkClassifier;
+	private static IBk pokemonKNNClassifier, customerSatisfactionKNNClassifier;
+	private static AdaBoostM1 pokemonBoostingClassifier, customerSatisfactionBoostingClassifier;
+	private static SMO pokemonSVMClassifier, customerSatisfactionSVMClassifier;
 	
 	public static void main(String[] args) {
 		long startTime = System.nanoTime();
